@@ -1,8 +1,12 @@
 
 class Show
-  attr_accessor :bits
-  def initialize(*bits)
-    @bits = bits
+  attr_accessor :word
+  attr_accessor :operator
+  attr_accessor :operand
+  def initialize(word, operator = nil, operand = nil)
+    @word = word
+    @operator = operator
+    @operand = operand
   end
 end
 
@@ -17,7 +21,7 @@ end
 
 class Located_command
   attr_accessor :start
-  attr_accessor :end
+  attr_accessor :stop
   def initialize(start = 0, stop = -1)
     @start = start
     @stop = stop
