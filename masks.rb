@@ -57,7 +57,7 @@ class Wand
     end
 
     def calcanimate
-        return [Show.new(word1), Show.new(word2), Show.new(@result)]
+        return [Show.new(word1, "&&", word2), Show.new(@result)]
     end
 end
 
@@ -102,6 +102,6 @@ class Wor
     end
 
     def calcanimate
-        return [Show.new(word1), Show.new(word2), Show.new(@result)]
+        return [Show.new(word1, "||", word2), Show.new(@result)]
     end
 end
