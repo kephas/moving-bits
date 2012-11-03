@@ -39,14 +39,10 @@ class Text_UI
   end
 
   def show(command)
-    word = command.word.bits.join('')
+    word = command.word.to_s
     operator = if command.operator then command.operator else ''end
     operand = if command.operand then
-                case command.operand
-                when Integer then command.operand.to_s
-                when Word then command.operand.bits.join('')
-                when String then command.operand
-                end
+                command.operand.to_s
               else ''
               end
 
@@ -68,7 +64,7 @@ class Text_UI
       if command.width > @margin then
         err('Cannot move that much!')
       else
-        print margin(@margin - command.width), @padding, @word.bits.join(''), "\n"
+        print margin(@margin - command.width), @padding, @word.to_s, "\n"
       end
     else
       # Right
