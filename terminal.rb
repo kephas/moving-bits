@@ -8,6 +8,7 @@ class Text_UI
 
   def initialize(margin = 8)
     @margin = margin
+    @padding = ''
     @c = Term::ANSIColor
   end
 
@@ -15,6 +16,7 @@ class Text_UI
     commands.each do |cmd|
       case cmd
         when Show then show(cmd)
+        when Move then move(cmd)
         else unknown_command()
       end
     end
@@ -57,6 +59,20 @@ class Text_UI
 
     print margin(), padding1, word, "\n", margin(), operator, '  ', operand, "\n"
     @word = command.word
+    @padding = padding1
+  end
+
+  def move(command)
+    if command.direction then
+      # Left
+      if command.width > @margin then
+        err('Cannot move that much!')
+      else
+        print margin(@margin - command.width), @padding, @word.bits.join(''), "\n"
+      end
+    else
+      # Right
+    end
   end
 
   def unknown_command()
