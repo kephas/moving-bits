@@ -17,7 +17,7 @@ end
 
 class Located_command
   attr_accessor :start
-  attr_accessor :end
+  attr_accessor :stop
   def initialize(start = 0, stop = -1)
     @start = start
     @stop = stop
