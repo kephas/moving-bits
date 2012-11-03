@@ -1,12 +1,16 @@
 
 class Show
-  attr_accessor :bits
-  def initialize(*bits)
-    @bits = bits
+  attr_accessor :word
+  attr_accessor :operator
+  attr_accessor :operand
+  def initialize(word, operator = nil, operand = nil)
+    @word = word
+    @operator = operator
+    @operand = operand
   end
 end
 
-class Shift
+class Move
   attr_accessor :direction # True is left
   attr_accessor :width
   def initialize(dir = True, width = 1)
@@ -17,10 +21,10 @@ end
 
 class Located_command
   attr_accessor :start
-  attr_accessor :end
-  def initialize(start = 0, end = -1)
+  attr_accessor :stop
+  def initialize(start = 0, stop = -1)
     @start = start
-    @end = end
+    @stop = stop
   end
 end
 
