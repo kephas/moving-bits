@@ -9,8 +9,8 @@
 # word in the "or" mask.
 
 # Required files
-require './word'
-require './commands'
+require 'word'
+require 'commands'
 
 # Class for the "and" mask
 class Wand
