@@ -1,8 +1,12 @@
 
 class Show
-  attr_accessor :bits
-  def initialize(*bits)
-    @bits = bits
+  attr_accessor :word
+  attr_accessor :operator
+  attr_accessor :operand
+  def initialize(word, operator = nil, operand = nil)
+    @word = word
+    @operator = operator
+    @operand = operand
   end
 end
 
