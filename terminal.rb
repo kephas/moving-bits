@@ -8,6 +8,10 @@ c = Term::ANSIColor
 class Text_UI
   attr_accessor :word
 
+  def initialize(margin = 8)
+    @margin = margin
+  end
+
   def execute(commands)
     commands.each do |cmd|
       case cmd
@@ -15,6 +19,10 @@ class Text_UI
         else unknown_command()
       end
     end
+  end
+
+  def margin(size = nil)
+    Array.new(if size then size else @margin end, ' ').join('')
   end
 
   def show(command)
@@ -36,7 +44,7 @@ class Text_UI
                  else ''
                  end
 
-    print padding1, word, "\n", operator, '  ', operand, "\n"
+    print margin(), padding1, word, "\n", margin(), operator, '  ', operand, "\n"
     @word = command.word
   end
 
