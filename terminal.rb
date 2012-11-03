@@ -3,13 +3,12 @@ require 'term/ansicolor'
 require 'word'
 require 'commands'
 
-c = Term::ANSIColor
-
 class Text_UI
   attr_accessor :word
 
   def initialize(margin = 8)
     @margin = margin
+    @c = Term::ANSIColor
   end
 
   def execute(commands)
@@ -23,6 +22,18 @@ class Text_UI
 
   def margin(size = nil)
     Array.new(if size then size else @margin end, ' ').join('')
+  end
+
+  def message(title, color, content)
+    print color, "{#{title}: #{content}}", @c.reset, "\n"
+  end
+
+  def warn(warning)
+    message('WARNING', @c.yellow, warning)
+  end
+
+  def err(error)
+    message('ERROR', @c.red, error)
   end
 
   def show(command)
@@ -49,6 +60,6 @@ class Text_UI
   end
 
   def unknown_command()
-    puts '{Command not implemented}'
+    warn('Command not implemented')
   end
 end
