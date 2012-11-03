@@ -1,5 +1,10 @@
+# Required files
+require './word'
+require './commands'
+
+# Class for and mask
 class Wand
-    attr_accessor :word1, :word2, :result, :steps
+    attr_accessor :word1, :word2, :result, :animate
     def initialize(word1, word2)
         @word1 = word1
         @word2 = word2
@@ -11,10 +16,12 @@ class Wand
         tmptab = []
         i = 0
 
-        unless (word1.bits[i] == nil) || (word2.bits[i] == nil)
-            if word1.bits[i] == word2.bits[i]
-                if word1.bits[i] == 1
+        until ((word1.bits[i] == nil) || (word2.bits[i] == nil))
+            if (word1.bits[i] == word2.bits[i])
+                if (word1.bits[i] == 1)
                     tmptab.push(1)
+                else
+                    tmptab.push(0)
                 end
             else
                 tmptab.push(0)
@@ -30,8 +37,9 @@ class Wand
     end
 end
 
+# Class for or mask
 class Wor
-    attr_accessor :word1, :word2, :result, :steps
+    attr_accessor :word1, :word2, :result, :animate
     def initialize(word1, word2)
         @word1 = word1
         @word2 = word2
@@ -43,8 +51,8 @@ class Wor
         tmptab = []
         i = 0
 
-        unless (word1.bits[i] == nil) || (word2.bits[i] == nil)
-            if (word1.bits[i] == 1) || (word2.bits[i] == 1)
+        until ((word1.bits[i] == nil) || (word2.bits[i] == nil))
+            if ((word1.bits[i] == 1) || (word2.bits[i] == 1))
                 tmptab.push(1)
             else
                 tmptab.push(0)
@@ -52,7 +60,7 @@ class Wor
             i += 1
         end
     
-        return @tmptab
+        return tmptab
     end
 
     def calcanimate
