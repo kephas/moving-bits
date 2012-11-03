@@ -1,4 +1,4 @@
-class wand
+class Wand
     attr_accessor :word1, :word2, :result, :steps
     def initialize(word1, word2)
         @word1 = word1
@@ -11,18 +11,18 @@ class wand
         tmptab = []
         i = 0
 
-        unless (word1[i] == nil) || (word2[i] == nil)
-            if word1[i] == word2[i]
-                if word[i] == 1
-                    tmptab.puts(1)
+        unless (word1.bits[i] == nil) || (word2.bits[i] == nil)
+            if word1.bits[i] == word2.bits[i]
+                if word1.bits[i] == 1
+                    tmptab.push(1)
                 end
             else
-                tmptab.puts(0)
+                tmptab.push(0)
             end
             i += 1
         end
 
-        return @tmptab
+        return tmptab
     end
 
     def calcanimate
@@ -30,7 +30,7 @@ class wand
     end
 end
 
-class wor
+class Wor
     attr_accessor :word1, :word2, :result, :steps
     def initialize(word1, word2)
         @word1 = word1
@@ -43,11 +43,11 @@ class wor
         tmptab = []
         i = 0
 
-        unless (word1[i] == nil) || (word2[i] == nil)
-            if (word1[i] == 1) || (word2[i] == 1)
-                tmptab.puts(1)
+        unless (word1.bits[i] == nil) || (word2.bits[i] == nil)
+            if (word1.bits[i] == 1) || (word2.bits[i] == 1)
+                tmptab.push(1)
             else
-                tmptab.puts(0)
+                tmptab.push(0)
             end
             i += 1
         end
