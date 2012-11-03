@@ -1,4 +1,4 @@
-exemple = Word.initialize(1,0)
+require "./commands.rb"
 
 class Shift
   attr_accessor :word
