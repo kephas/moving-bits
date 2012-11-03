@@ -12,6 +12,7 @@ class Text_UI
     commands.each do |cmd|
       case cmd
         when Show then show(cmd)
+        else unknown_command()
       end
     end
   end
@@ -37,5 +38,9 @@ class Text_UI
 
     print padding1, word, "\n", operator, '  ', operand, "\n"
     @word = command.word
+  end
+
+  def unknown_command()
+    puts '{Command not implemented}'
   end
 end
