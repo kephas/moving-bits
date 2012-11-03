@@ -3,6 +3,14 @@ class Word
   def initialize(*bits)
     @bits = bits
   end
+
+  def length
+    @bits.length
+  end
+
+  def to_s
+    @bits.join('')
+  end
 end
 
 def empty_word(size)
