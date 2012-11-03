@@ -6,7 +6,7 @@ class Show
   end
 end
 
-class Shift
+class Move
   attr_accessor :direction # True is left
   attr_accessor :width
   def initialize(dir = True, width = 1)
