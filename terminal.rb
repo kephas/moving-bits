@@ -4,11 +4,10 @@ require 'word'
 require 'commands'
 
 class Text_UI
-  attr_accessor :word
-
-  def initialize(margin = 8)
-    @margin = margin
-    @padding = ''
+  def initialize(width = 16)
+    @width = width
+    @alpha_mask = nil
+    @offset = 0
     @c = Term::ANSIColor
   end
 
@@ -20,10 +19,6 @@ class Text_UI
         else unknown_command()
       end
     end
-  end
-
-  def margin(size = nil)
-    Array.new(if size then size else @margin end, ' ').join('')
   end
 
   def message(title, color, content)
@@ -38,37 +33,40 @@ class Text_UI
     message('ERROR', @c.red, error)
   end
 
+  def spaces(size) Array.new(size, ' ').join('') end
+
+  def output_word(word)
+    @word = word
+    print spaces(@width - word.length + @offset), word, "\n"
+  end
+
   def show(command)
-    word = command.word.to_s
-    operator = if command.operator then command.operator else ''end
+    @offset = 0
+    @alpha_mask = nil
+    output_word(command.word)
+
+    operator = if command.operator then command.operator else '' end
     operand = if command.operand then
                 command.operand.to_s
               else ''
               end
 
-    length1 = word.length
-    length2 = operator.length + 2 + operand.length
-    padding1 = if length2 > length1 then
-                 Array.new(length2 - length1, ' ').join('')
-                 else ''
-                 end
-
-    print margin(), padding1, word, "\n", margin(), operator, '  ', operand, "\n"
-    @word = command.word
-    @padding = padding1
+    print spaces(@width - operator.length - 2 - operand.length), operator, '  ', operand, "\n"
   end
 
   def move(command)
     if command.direction then
       # Left
-      if command.width > @margin then
+      if command.width > (@width - @word.length) then
         err('Cannot move that much!')
       else
-        print margin(@margin - command.width), @padding, @word.to_s, "\n"
+        @offset = 0 - command.width
       end
     else
       # Right
+      @offset = command.width
     end
+    output_word(@word)
   end
 
   def unknown_command()
