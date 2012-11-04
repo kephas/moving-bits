@@ -42,8 +42,10 @@ class Text_UI
     @word = word
     print spaces(@width - word.length + @offset)
     word.bits.each_index do |i|
-      if @alpha_mask[i] then
+      if !@alpha_mask[i] then
+        if @emphasis_mask[i] then print @c.bold end
         print word.bits[i]
+        print @c.reset
       else
         print ' '
       end
@@ -53,7 +55,7 @@ class Text_UI
 
   def show(command)
     @offset = 0
-    @alpha_mask = Array.new(command.word.length, true)
+    @alpha_mask = Array.new(command.word.length, false)
     @emphasis_mask = Array.new(command.word.length, false)
     output_word(command.word)
 
@@ -84,7 +86,7 @@ class Text_UI
   def apply_mask_command(mask, command)
     mask.each_index do |i|
       if i >= command.start && i <= command.stop then
-        mask[i] = false
+        mask[i] = true
       end
     end
     output_word(@word)
