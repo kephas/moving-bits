@@ -2,8 +2,9 @@ require 'term/ansicolor'
 
 require 'word'
 require 'commands'
+require 'ui-common'
 
-class Text_UI
+class Text_UI < UI_With_Masks
   def initialize(width = 16)
     @width = width
     @alpha_mask = nil
@@ -79,15 +80,6 @@ class Text_UI
     else
       # Right
       @offset = command.width
-    end
-    output_word(@word)
-  end
-
-  def apply_mask_command(mask, command)
-    mask.each_index do |i|
-      if i >= command.start && i <= command.stop then
-        mask[i] = true
-      end
     end
     output_word(@word)
   end
