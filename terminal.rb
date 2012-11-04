@@ -7,6 +7,7 @@ class Text_UI
   def initialize(width = 16)
     @width = width
     @alpha_mask = nil
+    @emphasis_mask = nil
     @offset = 0
     @c = Term::ANSIColor
   end
@@ -16,6 +17,8 @@ class Text_UI
       case cmd
         when Show then show(cmd)
         when Move then move(cmd)
+        when Erase then erase(cmd)
+        when Emphasis then emphasis(cmd)
         else unknown_command()
       end
     end
@@ -37,12 +40,21 @@ class Text_UI
 
   def output_word(word)
     @word = word
-    print spaces(@width - word.length + @offset), word, "\n"
+    print spaces(@width - word.length + @offset)
+    word.bits.each_index do |i|
+      if @alpha_mask[i] then
+        print word.bits[i]
+      else
+        print ' '
+      end
+    end
+    print "\n"
   end
 
   def show(command)
     @offset = 0
-    @alpha_mask = nil
+    @alpha_mask = Array.new(command.word.length, true)
+    @emphasis_mask = Array.new(command.word.length, false)
     output_word(command.word)
 
     operator = if command.operator then command.operator else '' end
@@ -68,6 +80,18 @@ class Text_UI
     end
     output_word(@word)
   end
+
+  def apply_mask_command(mask, command)
+    mask.each_index do |i|
+      if i >= command.start && i <= command.stop then
+        mask[i] = false
+      end
+    end
+    output_word(@word)
+  end
+
+  def erase(command) apply_mask_command(@alpha_mask, command) end
+  def emphasis(command) apply_mask_command(@emphasis_mask, command) end
 
   def unknown_command()
     warn('Command not implemented')
