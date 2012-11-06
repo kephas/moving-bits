@@ -38,17 +38,13 @@ class Word
   end
 end
 
-def empty_word(size)
-  Word.new([]).expand(size)
-end
-
-def int_to_word(int)
-  def rec(unprocessed, bits)
+def int_to_word(int, size = 1)
+  def rec(unprocessed, bits, size)
     if unprocessed == 0 then
-      Word.new(bits.reverse)
+      Word.new(bits.reverse).expand(size)
     else
       rec(unprocessed / 2, bits.push(unprocessed % 2))
     end
   end
-  rec(int, [])
+  rec(int, [], size)
 end
