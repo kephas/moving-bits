@@ -1,7 +1,10 @@
 class Word
   attr_accessor :bits
   def initialize(*bits)
-    @bits = bits
+    case bits[0]
+      when Integer then @bits = bits
+      when Array then @bits = bits[0]
+    end
   end
 
   def length
@@ -26,4 +29,15 @@ def empty_word(size)
   word = Word.new()
   word.bits = Array.new(size, 0)
   word
+end
+
+def int_to_word(int)
+  def rec(unprocessed, bits)
+    if unprocessed == 0 then
+      Word.new(bits.reverse)
+    else
+      rec(unprocessed / 2, bits.push(unprocessed % 2))
+    end
+  end
+  rec(int, [])
 end
