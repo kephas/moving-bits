@@ -11,6 +11,19 @@ class Word
     @bits.length
   end
 
+  def expand(size)
+    if size <= length() then
+      Word.new(@bits)
+    else
+      Word.new(Array.new(size - length(), 0).concat(@bits))
+    end
+  end
+
+  def expand!(size)
+    @bits = expand(size).bits
+    self
+  end
+
   def to_s
     @bits.join('')
   end
