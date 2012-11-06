@@ -39,9 +39,7 @@ class Word
 end
 
 def empty_word(size)
-  word = Word.new()
-  word.bits = Array.new(size, 0)
-  word
+  Word.new([]).expand(size)
 end
 
 def int_to_word(int)
