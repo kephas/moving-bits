@@ -43,7 +43,7 @@ def int_to_word(int, size = 1)
     if unprocessed == 0 then
       Word.new(bits.reverse).expand(size)
     else
-      rec(unprocessed / 2, bits.push(unprocessed % 2))
+      rec(unprocessed / 2, bits.push(unprocessed % 2), size)
     end
   end
   rec(int, [], size)
