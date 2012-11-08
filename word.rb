@@ -36,6 +36,13 @@ class Word
     end
     sum
   end
+
+  def ==(other)
+    case other
+      when Word then to_int == other.to_int
+      else false
+    end
+  end
 end
 
 def int_to_word(int, size = 1)
